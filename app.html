@@ -18,40 +18,39 @@
     <div class="container">
 
         <div id="main" class="row mt-4 rounded p-5">
-            <div class="col-3 d-flex flex-column justify-content-center align-items-center ms-3 mt-3">
+            <div class="col-3 d-flex flex-column justify-content-center align-items-center ms-2 mt-3">
                 <form class="p-2">
-                    <div class="row mb-5">
+                    <div class="row mb-4">
                         <label for="loanAmount"
                             class="col col-form-label text-light font-monospace text-decoration-underline">Loan
                             Amount</label>
                         <div class="col">
-                            <input id="loanAmount" class="form-control" type="number" aria-label="Loan Amount"></input>
+                            <input id="loanAmount" value="25000" min="1" class="form-control" type="number" aria-label="Loan Amount"></input>
                         </div>
                     </div>
-                    <div class="row mb-5">
+                    <div class="row mb-4">
                         <label for="payments"
                             class="col col-form-label text-light font-monospace text-decoration-underline">Payments</label>
                         <div class="col">
-                            <input id="Payments" class="form-control" type="number" aria-label="Payments"></input>
+                            <input id="payments" value="60" min="1" class="form-control" type="number" aria-label="Payments"></input>
                         </div>
                     </div>
                     <div class="row">
                         <label for="interestRate"
                             class="col col-form-label text-light font-monospace text-decoration-underline">Interest Rate</label>
                         <div class="col">
-                            <input id="interestRate" class="form-control" type="number" placeholder="%"
+                            <input id="interestRate" value="5" min="1" class="form-control" type="number" placeholder="%"
                                 aria-label="Interest Rate"></input>
                         </div>
                     </div>
-                    <div class="row justify-content-end mt-5">
+                    <div class="row justify-content-end mt-4">
                         <button id="calculate" type="button"
                             class="btn btn-light border-2 fw-bold font-monospace w-50">Calculate</button>
                     </div>
                 </form>
             </div>
             <div class="col-5 ms-5 d-flex flex-column justify-content-center align-items-center">
-                <p class="text-light fs-5 fw-light fst-italic text-decoration-underline">Your Monthly Payments</p>
-                <p class="text-light fw-bold display-4">$259.00</p>
+                <img src="/img/month_payment.png" alt="Monthly Payment Reference Image" class="img-fluid">
             </div>
             <div class="col-3 d-flex flex-column justify-content-center align-items-end">
                 <p class="fs-6 fw-normal badge w-75 my-5">&#8205;</p>
@@ -62,7 +61,7 @@
 
         <div class="row">
             <div class="table-responsive col mt-4">
-                <table id="table" class="table table-bordered table-striped text-center">
+                <table class="table table-bordered table-striped text-center">
                     <thead>
                         <th>Month</th>
                         <th>Payment</th>
@@ -71,6 +70,9 @@
                         <th>Total Interest</th>
                         <th>Balance</th>
                     </thead>
+                    <tbody id="display">
+
+                    </tbody>
                 </table>
 
             </div>
