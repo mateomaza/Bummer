@@ -2,18 +2,23 @@ body {
     background-color: #ff5487;
 }
 
-#main{
+#main {
     background-color: #000000;
 }
 
-#calculate{
+#calculate {
     background-color: #00ced1;
 }
 
-.badge{
+.badge {
     background-color: #5b5255;
+    font-family: fantasy;
 }
 
-.table{
-    background-color:#ffffff;
+.table {
+    background-color: #ffffff;
+}
+
+.nums {
+    font-family: sans-serif;
 }
