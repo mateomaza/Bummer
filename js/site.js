@@ -20,16 +20,8 @@ function getValues() {
             balance > 0 && term > 0 && rate > 0) {
 
             let data = generateData(balance, term, rate);
-            let payment = data[0];
-            let principalValues = data[1];
-            let interestValues = data[2];
-            let totalIntValues = data[3];
-            let balanceValues = data[4];
-            let principalSum = data[5];
-            let interestSum = data[6];
-
-            displayTable(term, payment, principalValues, interestValues, totalIntValues,
-                balanceValues, principalSum, interestSum);
+         
+            displayTable(data, balance, term)
 
         } else {
             alert("Values must be whole numbers higher than 0");
@@ -42,38 +34,41 @@ function getValues() {
 
 function generateData(b, t, r) {
 
-    let data = []
+    let data = {}
 
     let payment = b * r / 1200 / (1 - (1 + r / 1200) ** -t);
     let principalValues = [];
     let interestValues = [];
     let totalIntValues = [];
     let balanceValues = [];
-    let principalSum = 0;
     let interestSum = 0;
 
     for (let i = 0; i < t; i++) {
         let currentInterest = b * r / 1200;
         let currentPrincipal = payment - currentInterest;
         b -= currentPrincipal;
-        principalValues.push(currentPrincipal.toFixed(2));
+        principalValues.push(currentPrincipal.toFixed(2))
         interestValues.push(currentInterest.toFixed(2));
-        principalSum += currentPrincipal
         interestSum += currentInterest;
         totalIntValues.push(interestSum.toFixed(2));
         balanceValues.push(b.toFixed(2));
     }
 
-    // "payment" is the same every month, that's why it's different
-    data = [payment, principalValues, interestValues, totalIntValues, balanceValues, principalSum, interestSum];
+    data.payment = payment
+    data.principalValues = principalValues
+    data.interestValues = interestValues
+    data.totalIntValues = totalIntValues
+    data.balanceValues = balanceValues 
+    data.interestSum = interestSum
 
     return data
 }
 
 
 // Display
+//t, p, pV, iV, totalIV, bV, pS, iS
 
-function displayTable(t, p, pV, iV, totalIV, bV, pS, iS) {
+function displayTable(data, b, t) {
 
     let info = document.getElementById("info");
     let p1 = document.getElementById("p1");
@@ -84,25 +79,20 @@ function displayTable(t, p, pV, iV, totalIV, bV, pS, iS) {
 
     for (let index = 0; index < t; index++) {
 
-        let monthP = pV[index];
-        let monthI = iV[index];
-        let monthTotalI = totalIV[index];
-        let monthB = bV[index];
-
-        tableRows += `<tr><td>${index+1}</td><td>$${p.toFixed(2)}</td><td>$${monthP}</td>
-        <td>$${monthI}</td><td>$${monthTotalI}</td><td>$${monthB}</td>`;
+        tableRows += `<tr><td>${index+1}</td><td>$${data.payment.toFixed(2)}</td><td>$${data.principalValues[index]}</td>
+        <td>$${data.interestValues[index]}</td><td>$${data.totalIntValues[index]}</td>
+        <td>$${data.balanceValues[index]}</td>`;
     }
 
     table.innerHTML = tableRows;
 
     info.innerHTML = `<p class="text-light fs-5 fw-light fst-italic text-decoration-underline">
-    Your Monthly Payments</p><p class="text-light fw-bold display-4">${p.toFixed(2)}</p>`;
+    Your Monthly Payments</p><p class="text-light fw-bold display-4">${data.payment.toFixed(2)}</p>`;
 
 
-    p1.innerHTML = `Total Principal: $${pS.toFixed(2)}`;
-    p2.innerHTML = `Total Interest: $${iS.toFixed(2)}`;
-    p3.innerHTML = `Total Cost: $${(pS + iS).toFixed(2)}`;
-
+    p1.innerHTML = `Total Principal: $${b.toFixed(2)}`;
+    p2.innerHTML = `Total Interest: $${data.interestSum.toFixed(2)}`;
+    p3.innerHTML = `Total Cost: $${(b + data.interestSum).toFixed(2)}`;
 
 
 }
